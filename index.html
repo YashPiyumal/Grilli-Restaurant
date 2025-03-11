@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grilli Restaurant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lora', serif; /* Luxurious body font */
+        }
+
+        body {
+            background: #1a1a1a; /* Black background */
+            color: #e6e6e6; /* Light gray for readability */
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .logo, .nav-menu a, .btn {
+            font-family: 'Cinzel', serif; /* Elegant heading font */
+        }
+
+        /* Common Elements */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(212, 175, 55, 0.2); /* Subtle gold glass */
+            backdrop-filter: blur(10px);
+            color: #d4af37; /* Gold text */
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background: #d4af37; /* Solid gold on hover */
+            color: #1a1a1a; /* Black text */
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.9);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #d4af37; /* Gold */
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 50px;
+            height: 2px;
+            background: #d4af37; /* Gold */
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Glass Effect */
+        .glass {
+            background: rgba(45, 45, 45, 0.2); /* Semi-transparent dark gray */
+            backdrop-filter: blur(10px); /* Frosted glass blur */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Top Bar */
+        .top-bar {
+            padding: 0.8rem 2rem;
+            background: rgba(26, 26, 26, 0.5); /* More transparent */
+            backdrop-filter: blur(10px);
+            color: #e6e6e6;
+            font-size: 0.9rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1100;
+        }
+
+        .top-bar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar-left, .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .top-bar i {
+            color: #d4af37; /* Gold icons */
+            margin-right: 0.5rem;
+        }
+
+        /* Separator */
+        .separator {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.8), transparent);
+            position: fixed;
+            top: 46px; /* Between top-bar and navbar */
+            width: 100%;
+            z-index: 1050;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 47px; /* Below top-bar and separator */
+            padding: 1rem 2rem;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.5); /* More transparent */
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d4af37; /* Gold */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .nav-menu li {
+            margin: 0 1.5rem;
+        }
+
+        .nav-menu a {
+            color: #e6e6e6; /* Light gray */
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1rem;
+        }
+
+        .nav-menu a:hover {
+            color: #d4af37; /* Gold on hover */
+        }
+
+        .nav-btn {
+            margin-left: auto; /* Push to right */
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #d4af37; /* Gold */
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 94px; /* Height of top-bar + navbar + separator */
+        }
+
+        .hero-slides {
+            position: absolute;
+            top: -94px; /* Pull images up to show under bars */
+            left: 0;
+            width: 100%;
+            height: calc(100% + 94px); /* Extend height to cover */
+            z-index: 0;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transform: scale(1);
+            transition: opacity 1s ease, transform 5s ease;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5); /* Lighter overlay */
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            color: #fff; /* White text */
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            color: #d4af37; /* Gold */
+            animation: slideInLeft 1s ease;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            padding: 80px 2rem;
+            position: relative;
+            background: #1a1a1a; /* Black */
+            perspective: 1000px; /* 3D space */
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            transform-style: preserve-3d;
+        }
+
+        .menu-card {
+            position: relative;
+            width: 100%;
+            height: 300px; /* Uniform size */
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .menu-card.glass {
+            background: rgba(45, 45, 45, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .menu-card:nth-child(1) { transform: rotateY(15deg) translateZ(0px); } /* Breakfast */
+        .menu-card:nth-child(2) { transform: rotateX(0deg) translateZ(50px); z-index: 5; } /* Lunch */
+        .menu-card:nth-child(3) { transform: rotateY(-15deg) translateZ(0px); } /* Dinner */
+
+        .menu-card:hover {
+            transform: translateZ(50px) scale(1.1);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.9); /* Gold flash */
+            z-index: 10;
+        }
+
+        .menu-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            border-radius: 15px;
+        }
+
+        .menu-card h3 {
+            font-size: 1.8rem;
+            color: #d4af37; /* Gold */
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .shine {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) rotate(45deg); }
+            100% { transform: translateX(-100%) rotate(45deg); }
+        }
+
+        /* Popup */
+        .menu-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .popup-content {
+            background: rgba(45, 45, 45, 0.2); /* Glass effect */
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: popupIn 0.3s ease;
+            color: #e6e6e6; /* Light gray */
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.7); /* Gold glow */
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #d4af37; /* Gold */
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #fff; /* White on hover */
+        }
+
+        .popup-content h2 {
+            color: #d4af37; /* Gold */
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .popup-content p {
+            font-size: 1rem;
+            line-height: 2;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 2rem;
+            background: #1a1a1a; /* Black */
+            position: relative;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 15px;
+            animation: fadeInUp 1s ease;
+            border: 2px solid #d4af37; /* Gold border */
+        }
+
+        .about-content {
+            padding: 2rem;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            color: #d4af37; /* Gold */
+            margin-bottom: 1rem;
+            animation: slideInRight 1s ease;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #e6e6e6; /* Light gray */
+            animation: fadeInUp 1s ease 0.2s backwards;
+            font-style: italic;
+        }
+
+        .about-content .btn {
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            padding: 80px 2rem;
+            background: #1a1a1a; /* Black */
+            position: relative;
+        }
+
+        .reviews-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .review-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .review-card {
+            min-width: 100%;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            color: #e6e6e6; /* Light gray */
+        }
+
+        .review-card.glass {
+            background: rgba(45, 45, 45, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .review-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            display: block;
+            border: 2px solid #d4af37; /* Gold border */
+        }
+
+        .review-card span {
+            display: block;
+            font-weight: 700;
+            color: #d4af37; /* Gold */
+            margin-bottom: 1rem;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .review-card p {
+            font-style: italic;
+            color: #e6e6e6; /* Light gray */
+            font-size: 1rem;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .slider-btn {
+            padding: 10px 20px;
+            background: #d4af37; /* Gold */
+            color: #1a1a1a; /* Black */
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .slider-btn:hover {
+            background: #1a1a1a; /* Black */
+            color: #d4af37; /* Gold */
+        }
+
+        /* Chefs Section */
+        .chefs {
+            padding: 80px 2rem;
+            text-align: center;
+            background: #1a1a1a; /* Black */
+            perspective: 1000px; /* 3D space */
+        }
+
+        .chefs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .chef-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 equal columns */
+            gap: 1.5rem;
+            padding: 0 1rem;
+            transform-style: preserve-3d;
+        }
+
+        .chef-card {
+            position: relative;
+            width: 100%;
+            height: 300px; /* Uniform size matching menu */
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 15px;
+            opacity: 0; /* For entrance animation */
+            transform: translateY(30px);
+        }
+
+        .chef-card.glass {
+            background: rgba(45, 45, 45, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .chef-card.visible {
+            animation: gridEntrance 0.6s ease forwards;
+        }
+
+        .chef-card:nth-child(1) { transform: rotateY(20deg) translateZ(-20px); }
+        .chef-card:nth-child(2) { transform: rotateY(10deg) translateZ(0px); }
+        .chef-card:nth-child(3) { transform: rotateX(0deg) translateZ(50px); z-index: 5; }
+        .chef-card:nth-child(4) { transform: rotateY(-10deg) translateZ(0px); }
+        .chef-card:nth-child(5) { transform: rotateY(-20deg) translateZ(-20px); }
+
+        .chef-card:hover {
+            transform: translateZ(50px) scale(1.1);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.9); /* Gold flash */
+            z-index: 10;
+        }
+
+        .chef-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            border-radius: 15px;
+        }
+
+        .chef-card h3 {
+            font-size: 1.2rem;
+            color: #d4af37; /* Gold */
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .chef-card p {
+            font-size: 0.9rem;
+            color: #e6e6e6; /* Light gray */
+            text-align: center;
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            font-style: italic;
+        }
+
+        .chef-card .shine {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 2rem;
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column {
+            padding: 1rem;
+        }
+
+        .footer-column.glass {
+            background: rgba(45, 45, 45, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #d4af37; /* Gold */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-column p, .footer-column ul {
+            font-size: 0.9rem;
+            color: #e6e6e6; /* Light gray */
+            font-style: italic;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: #e6e6e6; /* Light gray */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: #d4af37; /* Gold */
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            font-size: 1.2rem;
+            color: #d4af37; /* Gold */
+        }
+
+        .newsletter form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .newsletter input {
+            padding: 10px;
+            border: 1px solid #d4af37; /* Gold border */
+            background: rgba(26, 26, 26, 0.8); /* Slightly transparent */
+            color: #e6e6e6; /* Light gray */
+            border-radius: 20px;
+            width: 100%;
+            max-width: 200px;
+            font-style: italic;
+        }
+
+        .newsletter button {
+            padding: 10px 20px;
+            border: none;
+            background: #d4af37; /* Gold */
+            color: #1a1a1a; /* Black */
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .newsletter button:hover {
+            background: #1a1a1a; /* Black */
+            color: #d4af37; /* Gold */
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            font-size: 0.8rem;
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Animations */
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes popupIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes gridEntrance {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .top-bar-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+            .top-bar-left, .top-bar-right {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .separator { top: 70px; }
+            .navbar { top: 71px; }
+            .hamburger {
+                display: block;
+            }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(45, 45, 45, 0.2);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .nav-menu li {
+                margin: 1rem 0;
+            }
+            .nav-btn {
+                margin: 1rem 0;
+            }
+            .hero { margin-top: 142px; } /* Adjusted for stacked top-bar */
+            .hero-slides { top: -142px; height: calc(100% + 142px); }
+            .hero h1 { font-size: 3rem; }
+            .hero p { font-size: 1.2rem; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .menu-card { 
+                height: 250px; 
+                transform: translateZ(0px);
+            }
+            .menu-card:nth-child(1),
+            .menu-card:nth-child(2),
+            .menu-card:nth-child(3) {
+                transform: translateZ(0px);
+            }
+            .menu-card:hover { transform: scale(1.1); }
+            .popup-content { width: 95%; }
+            .section-title { font-size: 2rem; }
+            .about-container { grid-template-columns: 1fr; }
+            .chef-grid { grid-template-columns: 1fr; }
+            .chef-card { 
+                height: 250px; 
+                transform: translateZ(0px);
+            }
+            .chef-card:nth-child(1),
+            .chef-card:nth-child(2),
+            .chef-card:nth-child(3),
+            .chef-card:nth-child(4),
+            .chef-card:nth-child(5) {
+                transform: translateZ(0px);
+            }
+            .chef-card:hover { transform: scale(1.1); }
+            .footer-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar glass">
+        <div class="top-bar-container">
+            <div class="top-bar-left">
+                <span><i class="fas fa-map-marker-alt"></i> 123 Flavor Street, Food City, FC 45678</span>
+                <span><i class="fas fa-phone"></i> (123) 456-7890</span>
+            </div>
+            <div class="top-bar-right">
+                <span><i class="fas fa-clock"></i> Today: 9AM - 10PM</span>
+                <span><i class="fas fa-envelope"></i> info@grilli.com</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Separator -->
+    <div class="separator"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar glass">
+        <div class="nav-container">
+            <div class="logo">Grilli</div>
+            <ul class="nav-menu">
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#chefs">Chefs</a></li>
+            </ul>
+            <div class="nav-btn">
+                <a href="#" class="btn">Book a Table</a>
+            </div>
+            <div class="hamburger">☰</div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-slides">
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0');"></div>
+            <div class="hero-slide" style="background-image: url('Images/bar-1713610.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5');"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Enjoy Our Delicious Meals</h1>
+            <p>Savor the taste of culinary excellence with every bite at Grilli Restaurant. Experience fine dining with a warm, welcoming atmosphere.</p>
+            <a href="#menu" class="btn">Explore Menu</a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu">
+        <h2 class="section-title">Our Menus</h2>
+        <div class="menu-grid">
+            <div class="menu-card glass" onclick="showPopup('breakfast')">
+                <img src="Images/food-5981232.jpg" alt="Breakfast">
+                <div class="shine"></div>
+                <h3>Breakfast</h3>
+            </div>
+            <div class="menu-card glass" onclick="showPopup('lunch')">
+                <img src="Images/salmon-1312372.jpg" alt="Lunch">
+                <div class="shine"></div>
+                <h3>Lunch</h3>
+            </div>
+            <div class="menu-card glass" onclick="showPopup('dinner')">
+                <img src="Images/beer-2178693.jpg" alt="Dinner">
+                <div class="shine"></div>
+                <h3>Dinner</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Popups -->
+    <div id="breakfast-popup" class="menu-popup">
+        <div class="popup-content glass">
+            <span class="close-btn" onclick="hidePopup('breakfast')">×</span>
+            <h2>Breakfast Menu</h2>
+            <p>Pancakes - $8<br>Omelette - $9<br>French Toast - $7<br>Coffee & Croissant - $5</p>
+        </div>
+    </div>
+
+    <div id="lunch-popup" class="menu-popup">
+        <div class="popup-content glass">
+            <span class="close-btn" onclick="hidePopup('lunch')">×</span>
+            <h2>Lunch Menu</h2>
+            <p>Burger - $12<br>Salad - $10<br>Sandwich - $9<br>Soup of the Day - $6</p>
+        </div>
+    </div>
+
+    <div id="dinner-popup" class="menu-popup">
+        <div class="popup-content glass">
+            <span class="close-btn" onclick="hidePopup('dinner')">×</span>
+            <h2>Dinner Menu</h2>
+            <p>Steak - $20<br>Pasta - $15<br>Salmon - $18<br>Grilled Chicken - $16</p>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="Images/chef-4807317.jpg" alt="Restaurant Interior">
+            </div>
+            <div class="about-content">
+                <h2>About Us</h2>
+                <p>We are a family-owned restaurant serving delicious meals since 1995. Our passion is to create memorable dining experiences with fresh, locally-sourced ingredients and warm hospitality. At Grilli, every dish tells a story of tradition, innovation, and love for food.</p>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews" id="reviews">
+        <h2 class="section-title">Customer Reviews</h2>
+        <div class="reviews-container">
+            <div class="review-slider">
+                <div class="review-card glass">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" alt="Customer 1">
+                    <span>John D.</span>
+                    <p>"The food here is absolutely amazing! The flavors are perfectly balanced, and the service is top-notch. Highly recommend the dinner menu."</p>
+                </div>
+                <div class="review-card glass">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e" alt="Customer 2">
+                    <span>Sarah M.</span>
+                    <p>"Best dining experience in town! The ambiance is cozy, and the staff makes you feel right at home. Can't wait to come back!"</p>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button class="slider-btn" onclick="slideReview(-1)">←</button>
+                <button class="slider-btn" onclick="slideReview(1)">→</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chefs Section -->
+    <section class="chefs" id="chefs">
+        <h2 class="section-title">Our Chefs</h2>
+        <div class="chefs-container">
+            <div class="chef-grid">
+                <div class="chef-card glass">
+                    <img src="https://images.unsplash.com/photo-1583394293214-28ded15ee548" alt="Chef 1">
+                    <div class="shine"></div>
+                    <h3>Chef Maria</h3>
+                    <p>Italian Specialist</p>
+                </div>
+                <div class="chef-card glass">
+                    <img src="https://images.unsplash.com/photo-1595475038784-bbe439ff41e6" alt="Chef 2">
+                    <div class="shine"></div>
+                    <h3>Chef John</h3>
+                    <p>Fusion Master</p>
+                </div>
+                <div class="chef-card glass">
+                    <img src="Images/cook-4872956 (1).jpg" alt="Chef 3">
+                    <div class="shine"></div>
+                    <h3>Chef Anna</h3>
+                    <p>Pastry Expert</p>
+                </div>
+                <div class="chef-card glass">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a" alt="Chef 4">
+                    <div class="shine"></div>
+                    <h3>Chef David</h3>
+                    <p>Grill Master</p>
+                </div>
+                <div class="chef-card glass">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7" alt="Chef 5">
+                    <div class="shine"></div>
+                    <h3>Chef Lisa</h3>
+                    <p>Seafood Specialist</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column glass">
+                <h3>Grilli</h3>
+                <p>123 Flavor Street<br>Food City, FC 45678<br>Phone: (123) 456-7890<br>Email: info@grilli.com</p>
+                <div class="social-links">
+                    <a href="#">FB</a>
+                    <a href="#">TW</a>
+                    <a href="#">IG</a>
+                </div>
+            </div>
+            <div class="footer-column glass">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#chefs">Chefs</a></li>
+                </ul>
+            </div>
+            <div class="footer-column glass">
+                <h3>Opening Hours</h3>
+                <p>Monday - Friday: 9AM - 10PM<br>Saturday: 10AM - 11PM<br>Sunday: 10AM - 9PM</p>
+            </div>
+            <div class="footer-column newsletter glass">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get the latest updates and offers.</p>
+                <form>
+                    <input type="email" placeholder="Your Email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Grilli Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Popup Functions
+        function showPopup(menu) {
+            document.getElementById(`${menu}-popup`).style.display = 'flex';
+        }
+
+        function hidePopup(menu) {
+            document.getElementById(`${menu}-popup`).style.display = 'none';
+        }
+
+        // Hamburger Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('.nav-menu a, .hero .btn, .footer-column a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                if (window.innerWidth <= 768 && !this.classList.contains('btn')) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Hero Slideshow
+        const slides = document.querySelectorAll('.hero-slide');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        showSlide(currentSlide);
+        setInterval(nextSlide, 5000); // Change slide every 5 seconds
+
+        // Review Slider
+        let reviewIndex = 0;
+        const reviewSlider = document.querySelector('.review-slider');
+        const reviews = document.querySelectorAll('.review-card').length;
+
+        function slideReview(direction) {
+            reviewIndex += direction;
+            if (reviewIndex < 0) reviewIndex = reviews - 1;
+            if (reviewIndex >= reviews) reviewIndex = 0;
+            reviewSlider.style.transform = `translateX(-${reviewIndex * 100}%)`;
+        }
+
+        // Animate Chef Grid on Scroll
+        const chefCards = document.querySelectorAll('.chef-card');
+
+        function animateGrid(cards) {
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, index * 200); // Staggered delay
+            });
+        }
+
+        const observerOptions = { threshold: 0.1 };
+        const chefObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                animateGrid(chefCards);
+                chefObserver.unobserve(entries[0].target);
+            }
+        }, observerOptions);
+
+        chefObserver.observe(document.querySelector('.chefs'));
+
+        // Adjust slider on resize
+        window.addEventListener('resize', () => {
+            slideReview(0);
+        });
+
+        // Dynamic Opening Hours (March 10, 2025 is a Monday)
+        const today = new Date('2025-03-10');
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const hours = {
+            'Sunday': '10AM - 9PM',
+            'Monday': '9AM - 10PM',
+            'Tuesday': '9AM - 10PM',
+            'Wednesday': '9AM - 10PM',
+            'Thursday': '9AM - 10PM',
+            'Friday': '9AM - 10PM',
+            'Saturday': '10AM - 11PM'
+        };
+        const todayName = days[today.getDay()];
+        document.querySelector('.top-bar-right span:first-child').innerHTML = `<i class="fas fa-clock"></i> Today (${todayName}): ${hours[todayName]}`;
+    </script>
+</body>
+</html>
